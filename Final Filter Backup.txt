@@ -1,0 +1,45 @@
+// Intialize Get Query
+query = "";
+// URL Result
+NewSearchResultPublishUrl = "https://creator.zohopublic.com/zoho_redge/andorra-test/report-embed/Property_Database_Filter/qypJqOKq4PS9qBTMJMuU43pduy00EgB9NBx6yqBsNenmr1Ks7F66AR8pBW6H3u12pKTXkK22j4AyRP2O509GsGf5KAyJWvsERxux";
+// Declaration Value links
+// Primary
+MacroLink = "Address.address_line_1=" + ifnull(input.Macro1.address_line_1,"") + "&Address.address_line_1_op=26&Address.country=" + ifnull(input.Macro1.country,"") + "&Address.country_op=26&Address.district_city=" + ifnull(input.Macro1.district_city,"") + "&Address.district_city_op=26&Address.state_province=" + ifnull(input.Macro1.state_province,"");
+MicroLink = "Precinct=[" + ifnull(input.Micro.toString(),"") + "]&Precinct_op=26";
+BuildingLink = "Select_the_building_grade=[" + ifnull(input.Building_Grade.toString(),"") + "]&Select_the_building_grade_op=26";
+inMinRentLink = "Min_Net_Rent_Per_Square_Metre=[" + ifnull(input.Min_Net_Rent_Per_Square_Metre1,"") + "]&Min_Net_Rent_Per_Square_Metre_op=23";
+inMaxRentLink = "Max_Net_Rent_Per_Square_Metre=[" + ifnull(input.Max_Net_Rent_Per_Square_Metre1,"") + "]&Max_Net_Rent_Per_Square_Metre_op=22";
+inAreaMinLink = "Available_Area_Min=[" + ifnull(input.Available_Area_Min,"") + "]&Available_Area_Min_op=23";
+inAreaMaxLink = "Available_Area_Max=[" + ifnull(input.Available_Area_Max,"") + "]&Available_Area_Max_op=22";
+// Secondary
+CarLink = "Number_Available=[" + ifnull(input.Car_Parking,"") + "]";
+if(input.Cafe != true)
+{
+	input.Cafe = null;
+}
+CafeLink = "Cafes_Within_Development=" + input.Cafe;
+if(input.Gym != true)
+{
+	input.Gym = null;
+}
+GymLink = "Gyms_Within_Development=" + input.Gym;
+EnvLink = "Rating1=[" + ifnull(input.Environmental_Rating,"") + "]";
+if(input.Wellness_Rating.toString() == null)
+{
+	input.Wellness_Rating = null;
+}
+WellnessLink = "Wellness_Facilities_Within_Development=" + input.Wellness_Rating;
+InfrasLink = "Infrastructure_Type=[" + ifnull(input.Infrastructure.toString(),"") + "]&Electrical_Generators_op=26";
+AmenLink = "Amenties_Type=[" + ifnull(input.Other_Amenities.toString(),"") + "]&Amenties_Type_op=26";
+inPlatMinLink = "Typical_Floor_Plates_Min=[" + ifnull(input.Desired_Plan_Plate_Size_min,"") + "]&Typical_Floor_Plates_Min_op=23";
+inPlatMaxLink = "Typical_Floor_Plates_Max=[" + ifnull(input.Desired_plan_plate_size_max,"") + "]&Typical_Floor_Plates_Max_op=22";
+// if Secondary is checked
+if(ifnull(input.Show_Hide,"") == false)
+{
+	query = "?" + MacroLink + "&" + MicroLink + "&" + BuildingLink + "&" + inMinRentLink + "&" + inMaxRentLink + "&" + inAreaMinLink + "&" + inAreaMaxLink;
+}
+else
+{
+	query = "?" + MacroLink + "&" + MicroLink + "&" + BuildingLink + "&" + inMinRentLink + "&" + inMaxRentLink + "&" + inAreaMinLink + "&" + inAreaMaxLink + "&" + CarLink + "&" + CafeLink + "&" + GymLink + "&" + EnvLink + "&" + WellnessLink + "&" + InfrasLink + "&" + AmenLink + "&" + inPlatMinLink + "&" + inPlatMaxLink;
+}
+openUrl(NewSearchResultPublishUrl + query,"iframe","zohoview");

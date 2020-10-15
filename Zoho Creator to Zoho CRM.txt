@@ -1,0 +1,15 @@
+resp = zoho.crm.getRecords("Landlords");
+info resp;
+listData = list();
+respList = resp.toJsonList();
+for each  rec in respList
+{
+	variable1 = rec.getJson("Name");
+	listData.add(variable1);
+}
+for each  rec in listData
+{
+	input.Landlord:ui.add(listData);
+	input.Landlord1:ui.add(listData);
+	input.Landlord2:ui.add(listData);
+}
